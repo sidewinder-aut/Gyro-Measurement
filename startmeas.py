@@ -139,7 +139,7 @@ def trig_switch_off(channel):                                               # Du
     
 #-----------------------------------------------------------------------------------------------------------------
 #--- Interrrupt event add ----------------------------------------------------------------------------------------    
-GPIO.add_event_detect(20, GPIO.FALLING, callback = trig_switch_on, bouncetime = 500) 		
+GPIO.add_event_detect(20, GPIO.FALLING, callback = trig_switch_on, bouncetime = 500)         
 GPIO.add_event_detect(21, GPIO.FALLING, callback = trig_switch_off, bouncetime = 500)      
 
 
