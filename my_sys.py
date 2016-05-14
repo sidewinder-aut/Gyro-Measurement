@@ -108,8 +108,8 @@ def send_mail(dirpath, plot_type):
     # Create a text/plain message
     msg = email.mime.Multipart.MIMEMultipart()
     msg['Subject'] = 'Measurement data from gyroscope'
-    msg['From'] = 'schnupfen1l@gmail.com'
-    msg['To'] = 'schnupfen1@gmail.com'
+    msg['From'] = 'yourmail@mailprovider.com'
+    msg['To'] = 'yourmail@mailprovider.com'
      
     # The main body is just another attachment
     body = email.mime.Text.MIMEText("""Attached data contains gyro plot""")
@@ -151,7 +151,7 @@ def send_mail(dirpath, plot_type):
     # So, I use the default port 25, but I authenticate.
     s = smtplib.SMTP('smtp.gmail.com:587')
     s.starttls()
-    s.login('schnupfen1@gmail.com','2009sg2013TZ!')
-    s.sendmail('schnupfen1@gmail.com',['schnupfen1@gmail.com'], msg.as_string())
+    s.login('yourmail@mailprovider.com','XXXXXXXXXXX')
+    s.sendmail('yourmail@mailprovider.com',['yourmail@mailprovider.com'], msg.as_string())
     s.quit()
     
