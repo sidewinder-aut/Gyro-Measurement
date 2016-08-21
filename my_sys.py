@@ -1,14 +1,23 @@
 
-#=================================================================================================================
-#-----------------------------------------------------------------------------------------------------------------
+#==========================================================================================================================================================
+#==========================================================================================================================================================
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------
+#                        SHORT DESCRIPTION: 
+#                        ==================
 # Subscripts used by gyro_measurement_v2.py. 
 #
-#                       RECORD OF REVISIONS:
-#                      =====================
-#        Date:      Programmer:       Description of changes:
-#     ========    =============     =========================
-#     2015/Dec/13     L.Eder           v 2.0
-#     2016/Jan/07     L.Eder           v 2.0.1 - Minor bugfixes and some more documentation
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------
+#=                     RECORD OF REVISIONS:
+#                      ====================
+#        Date:          Programmer:       Description of changes:
+#     ========         =============     =========================
+#     2015/Sep/07         L.Eder            1.0
+#     2016/Mar/28         L.Eder            2.0 - Version with Interrupts and Multithreading
+#     2016/Apr/15         L.Eder            3.0 - Revised interrupt version with revised decision tree in the main loop
+#     2016/Apr/29         L.Eder            4.0 - Revised interrupt version with minor bugfixes and documetation
+#     2016/May/16         L.Eder            4.1 - Features support for the WS2812b Diode with special pyhton library - code is currently very messy
+#==========================================================================================================================================================
+#==========================================================================================================================================================
 
 
 #=================================================================================================================
@@ -36,12 +45,18 @@ def make_dir(dir_num):
 
 #=================================================================================================================
 #--- start_log: Creates the logfile and writes the measurement start time in it
-def start_log(dirpath):
+def start_log(dirpath, f_check):
 
     import time
     logdata = open(dirpath + "/measurement_log.txt", "w")
     logdata.write("Measurement successfully started at: ")
     logdata.write(str(time.ctime()))
+    if f_check == True:
+        logdata.write('\n')
+        logdata.write('Filter activated')
+    else:
+        logdata.write('\n')
+        logdata.write('No filter activated')   
     logdata.write('\n')
     logdata.write("Measurement folder created: ")
     logdata.write(str(dirpath))
@@ -108,8 +123,8 @@ def send_mail(dirpath, plot_type):
     # Create a text/plain message
     msg = email.mime.Multipart.MIMEMultipart()
     msg['Subject'] = 'Measurement data from gyroscope'
-    msg['From'] = 'yourmail@mailprovider.com'
-    msg['To'] = 'yourmail@mailprovider.com'
+    msg['From'] = 'schnupfen1l@gmail.com'
+    msg['To'] = 'schnupfen1@gmail.com'
      
     # The main body is just another attachment
     body = email.mime.Text.MIMEText("""Attached data contains gyro plot""")
@@ -151,7 +166,7 @@ def send_mail(dirpath, plot_type):
     # So, I use the default port 25, but I authenticate.
     s = smtplib.SMTP('smtp.gmail.com:587')
     s.starttls()
-    s.login('yourmail@mailprovider.com','XXXXXXXXXXX')
-    s.sendmail('yourmail@mailprovider.com',['yourmail@mailprovider.com'], msg.as_string())
+    s.login('schnupfen1@gmail.com','2009sg2013TZ!')
+    s.sendmail('schnupfen1@gmail.com',['schnupfen1@gmail.com'], msg.as_string())
     s.quit()
-    
+
